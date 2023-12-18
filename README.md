@@ -1,4 +1,10 @@
-Take-home task for Sylvera
+## Take-home task for Sylvera
+
+## Decisions
+
+- SWR (Stale-While-Revalidate), a React Hooks library, to efficiently handle GET requests to the API and enable me to cache and automatically refetch data based on a set frequency
+- React testing library to unit test components
+- tailwindcss and daisyui for styling
 
 ## With more time I would:
 
