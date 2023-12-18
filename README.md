@@ -4,19 +4,20 @@
 
 - SWR (Stale-While-Revalidate), a React Hooks library, to efficiently handle GET requests to the API and enable me to cache and automatically refetch data based on a set frequency
 - React testing library to unit test components
-- tailwindcss and daisyui for styling
+- Tailwindcss and daisyUI for styling
 
 ## With more time I would:
 
-- validate response from backend using types - zod
-- improve accessibility i.e. use of aria roles and labels
-- make component to improve design for scenario where there are no feed entries
-- test edge-cases for empty states and boundaries i.e. when feeds is less than 10
+- Make better use of white space, i.e. fill screen with content
+- Validate response from backend using types using something like zod
+- Improve accessibility i.e. use of aria roles, testing keyboard navigation etc.
+- Make component to improve design for scenario where there are no feed entries
+- Test edge-cases for empty states and boundaries i.e. when feeds is less than 10
 
 ## Assumptions
 
 - Top ten is the top of the list returned in response from API, as opposed to based on time entry
-- Infrequently and very infrequently have been interpreted as one day and half a day respectively to be the frequency at which we fetch projects and project details
+- "Infrequently" and "very infrequently" have been interpreted as one day and half a day respectively as the frequency for fetching projects and project details
 
 ## Getting Started
 
