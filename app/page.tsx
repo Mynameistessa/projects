@@ -1,24 +1,32 @@
 "use client";
+import Loading from "@/components/loading";
+import { ONE_DAY } from "@/constants/time";
 import Link from "next/link";
 import useSWR from "swr";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 export default function Home() {
-  // TODO: look at cacheing in useSWR
-  const { data, error, isLoading } = useSWR("/api/projects", fetcher);
+  const { data, error, isLoading } = useSWR("/api/projects", null, {
+    refreshInterval: ONE_DAY,
+  });
 
   if (error) return <div>Failed to load</div>;
-  if (!data && isLoading) return <div>Loading...</div>;
+  if (!data && isLoading) return <Loading />;
 
   return (
-    <div>
-      <h1 className="text-4xl font-black">Projects</h1>
-      <div className="mt-4">
+    <div className="pt-32 ml-8">
+      <h1 role="heading" className="text-4xl font-black">
+        Projects
+      </h1>
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         {data.projectNames.map((projectName: string) => (
-          <div key={projectName}>
-            <Link href={`/project/${projectName}/latest`}>{projectName}</Link>
-          </div>
+          <Link
+            href={`/project/${projectName}/latest`}
+            key={projectName}
+            data-testid={projectName}
+            className="btn btn-primary"
+          >
+            {projectName}
+          </Link>
         ))}
       </div>
     </div>

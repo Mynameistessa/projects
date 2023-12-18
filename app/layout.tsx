@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Banner from "@/components/banner";
 import "./globals.css";
+import { SWRProvider } from "@/providers/swr";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,10 +18,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={`${inter.className} bg-white min-h-screen flex flex-col`}
+      >
         <Banner />
-        <main className="flex min-h-screen flex-col justify-between p-24">
-          {children}
+        <main className="flex flex-col justify-between m-8">
+          <SWRProvider>{children}</SWRProvider>
         </main>
       </body>
     </html>
