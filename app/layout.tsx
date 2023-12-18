@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} bg-white min-h-screen flex flex-col`}
+        className={`${inter.className} bg-white dark:bg-white min-h-screen flex flex-col`}
       >
         <Banner />
         <main className="flex flex-col justify-between m-8">
