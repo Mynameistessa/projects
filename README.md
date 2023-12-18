@@ -1,4 +1,16 @@
-tThis is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Take-home task for Sylvera
+
+## With more time I would:
+
+- validate response from backend using types - zod
+- improve accessibility i.e. use of aria roles and labels
+- make component to improve design for scenario where there are no feed entries
+- test edge-cases for empty states and boundaries i.e. when feeds is less than 10
+
+## Assumptions
+
+- Top ten is the top of the list returned in response from API, as opposed to based on time entry
+- Infrequently and very infrequently have been interpreted as one day and half a day respectively to be the frequency at which we fetch projects and project details
 
 ## Getting Started
 
@@ -34,18 +46,3 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-## Todos
-
-- improve styling
-- validate response from backend using types - zod
-
-- make table with tailwind table html elements - make table component
-- add refresh interval on project details page
-- finish testing
-- finish assumptions
-
-## Assumptions
-
-- top ten is the top of the list
--

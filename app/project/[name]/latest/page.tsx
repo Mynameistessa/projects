@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import React from "react";
+import { HALF_DAY } from "@/constants/time";
 
 interface ProjectDetailsProps {
   params: { name: string };
@@ -14,7 +15,13 @@ interface ProjectDetailsProps {
 const ProjectPage = ({ params }: ProjectDetailsProps) => {
   const { name } = params;
 
-  const { data, error, isLoading } = useSWR(`/api/project/${name}/latest`);
+  const { data, error, isLoading } = useSWR(
+    `/api/project/${name}/latest`,
+    null,
+    {
+      refreshInterval: HALF_DAY,
+    }
+  );
 
   if (error) return <div>Failed to load</div>;
   if (!data && isLoading) return <Loading />;
@@ -24,22 +31,19 @@ const ProjectPage = ({ params }: ProjectDetailsProps) => {
   }
 
   function topTen(): React.ReactNode {
-    const newArray = data.feeds.slice(0, 11);
+    const newArray = data.feeds.slice(0, 10);
 
     return newArray.map((entry: Entry) => (
-      <div
-        key={entry.device_id}
-        className="bg-green-100 grid grid-cols-4 gap-4 rounded border-b-4 border-white p-2"
-      >
-        <div className="tooltip break-words" data-tip={entry.device_id}>
+      <tr key={entry.device_id}>
+        <td className="tooltip break-words" data-tip={entry.device_id}>
           {entry.device_id.length > 15
             ? entry.device_id.slice(0, 8)
             : entry.device_id}
-        </div>
-        <div>{entry.gps_lon ?? "null"}</div>
-        <div>{entry.gps_lat ?? "null"}</div>
-        <div>{formatTimestamp(entry.timestamp)}</div>
-      </div>
+        </td>
+        <td>{entry.gps_lon ?? "null"}</td>
+        <td>{entry.gps_lat ?? "null"}</td>
+        <td>{formatTimestamp(entry.timestamp)}</td>
+      </tr>
     ));
   }
 
@@ -49,22 +53,31 @@ const ProjectPage = ({ params }: ProjectDetailsProps) => {
         <Link href={"/"} className="mr-4 btn btn-xs btn-primary">
           <FontAwesomeIcon icon={faArrowLeft} />
         </Link>
-        <p className="text-2xl font-black">Project Details for {name}</p>
+        <h1 role="heading" className="text-2xl font-black">
+          Project Details for {name}
+        </h1>
       </div>
-      <div className="mb-2">
-        <p className="font-extrabold">Total number of feed entries:</p>{" "}
+      <div className="mb-2 flex">
+        <p className="font-extrabold mr-2">Total number of feed entries:</p>{" "}
         <p>{data.num_of_records}</p>
       </div>
       {data.num_of_records > 10 ? (
         <>
           <p className="font-extrabold mb-2">Top ten feed entries</p>
-          <div className="grid grid-cols-4 gap-4 font-bold">
-            <div>ID</div>
-            <div>Longitude</div>
-            <div>Latitude</div>
-            <div>Time of entry</div>
-          </div>
-          {topTen()}
+          <table
+            data-testid="project-table"
+            className="w-full table-auto text-center border-separate border-spacing-2 border border-blue-300"
+          >
+            <thead className="bg-blue-300">
+              <tr data-testid="table-row-headers">
+                <th>ID</th>
+                <th>Longitude</th>
+                <th>Latitude</th>
+                <th>Time of entry</th>
+              </tr>
+            </thead>
+            <tbody>{topTen()}</tbody>
+          </table>
         </>
       ) : null}
     </div>

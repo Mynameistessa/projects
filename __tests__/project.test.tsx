@@ -1,6 +1,5 @@
 import "@testing-library/jest-dom";
 import {
-  prettyDOM,
   render,
   screen,
   waitForElementToBeRemoved,
@@ -46,5 +45,4 @@ describe("Home", () => {
       expect(projectNameEl).toBeInTheDocument();
     }
   );
-  // assert project names match what comes back from server
 });
