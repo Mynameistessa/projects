@@ -1,4 +1,4 @@
-## Take-home task for Sylvera
+## UI showing PM2.5 monitoring projects 
 
 ## Decisions
 
