@@ -7,8 +7,8 @@ import { SWRProvider } from "@/providers/swr";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Sylvera Projects",
-  description: "Sylvera Frontend Task",
+  title: "PM2.5 Monitoring Projects",
+  description: "Reads API for measurements of PM2.5",
 };
 
 export default function RootLayout({

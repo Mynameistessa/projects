@@ -15,8 +15,13 @@ export default function Home() {
   return (
     <div className="pt-32 ml-8">
       <h1 role="heading" className="text-4xl font-black">
-        Projects
+        Projects - For the LASS (Location Aware Sensing System) PM2.5 project.
       </h1>
+      <p>
+        This data is gathered by the public to help monitor PM2.5, which are
+        fine particulate matter with a diameter of less than 2.5 micrometers
+        found in the air.
+      </p>
       <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         {data.projectNames.map((projectName: string) => (
           <Link
