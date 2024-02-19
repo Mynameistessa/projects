@@ -8,19 +8,6 @@ Using: https://pm25.lass-net.org/
 - React testing library to unit test components
 - Tailwindcss and daisyUI for styling
 
-## With more time I would:
-
-- Make better use of white space, i.e. fill screen with content
-- Validate response from backend using types using something like zod
-- Improve accessibility i.e. use of aria roles, testing keyboard navigation etc.
-- Make component to improve design for scenario where there are no feed entries
-- Test edge-cases for empty states and boundaries i.e. when feeds is less than 10
-
-## Assumptions
-
-- Top ten is the top of the list returned in response from API, as opposed to based on time entry
-- "Infrequently" and "very infrequently" have been interpreted as one day and half a day respectively as the frequency for fetching projects and project details
-
 ## Getting Started
 
 First, run the development server:
