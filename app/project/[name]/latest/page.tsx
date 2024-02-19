@@ -5,7 +5,7 @@ import Loading from "@/components/loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { HALF_DAY } from "@/constants/time";
 
 interface ProjectDetailsProps {
@@ -14,6 +14,8 @@ interface ProjectDetailsProps {
 
 const ProjectPage = ({ params }: ProjectDetailsProps) => {
   const { name } = params;
+  const [entries, setEntries] = useState([]);
+  const [pageSize, setPageSize] = useState(10);
 
   const { data, error, isLoading } = useSWR(
     `/api/project/${name}/latest`,
@@ -23,6 +25,11 @@ const ProjectPage = ({ params }: ProjectDetailsProps) => {
     }
   );
 
+  useEffect(() => {
+    const intialEntries = (data?.feeds || []).slice(0, 10);
+    setEntries(intialEntries);
+  }, [data?.feeds]);
+
   if (error) return <div>Failed to load</div>;
   if (!data && isLoading) return <Loading />;
 
@@ -30,10 +37,17 @@ const ProjectPage = ({ params }: ProjectDetailsProps) => {
     return new Date(originalDateTimeString).toLocaleString();
   }
 
-  function topTen(): React.ReactNode {
-    const newArray = data.feeds.slice(0, 10);
+  // let pageSize = 10;
+  function getNextPage() {
+    const startIndex = pageSize + 10;
+    setPageSize(startIndex);
+    setEntries(() => data.feeds.slice(startIndex, startIndex + 10));
+  }
 
-    return newArray.map((entry: Entry) => (
+  function showEntries(): React.ReactNode {
+    const newArray = data.feeds.slice(0, pageSize);
+
+    return entries.map((entry: Entry) => (
       <tr key={entry.device_id}>
         <td className="tooltip break-words" data-tip={entry.device_id}>
           {entry.device_id.length > 15
@@ -76,8 +90,14 @@ const ProjectPage = ({ params }: ProjectDetailsProps) => {
                 <th>Time of entry</th>
               </tr>
             </thead>
-            <tbody>{topTen()}</tbody>
+            <tbody>{showEntries()}</tbody>
           </table>
+          <div className="flex">
+            <button>Previous</button>
+            <button className="ml-auto" onClick={() => getNextPage()}>
+              Next
+            </button>
+          </div>
         </>
       ) : null}
     </div>
